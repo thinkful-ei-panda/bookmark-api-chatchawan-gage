@@ -26,15 +26,14 @@ bookmarkRouter
     res.json(bookmark);
   })
 
-  .delete((req, res) => {
+  .delete((req,res)=>{
     const { id } = req.params;
-    const index = store.findIndex((e) => e.id === Number(id));
-
-    if (index === -1) {
-      res.send('No ID found');
-    }
-
-    res.send('Found ID and deleted!');
+    const index = store.findIndex( a => a.id === id);
+  
+    index === -1 ? res.status(404).send('sorry that\'s already gone') 
+    && loggers.error(
+      `i don't think we have the bookmark with id of ${id} that one`)
+      : store.splice(index,1) && res.status(201).send('we did the thing') ;
   });
 
 bookmarkRouter
@@ -50,26 +49,38 @@ bookmarkRouter
     const urlR = /^(https?|chrome):\/\/[^\s$.?#].[^\s]*$/gm;
     x.id = uid;
 
-    !title || typeof title !== 'string'
-      ? loggers.error(`Ayyo fam, ${title} be a busted title`) &&
-        res.status(401).send(`${title} is not a valid title`)
-      : x.title = title;
-    !url || url.match(!urlR)
-      ? loggers.error(`Ayyo fam, ${url} be a busted url`) &&
-        res.status(401).send(`${url} is not a valid url`)
-      : x.url = url;
-    !name || typeof name !== 'string'
-      ? loggers.error(`Ayyo fam, ${name} be a busted name`) &&
-        res.status(401).send(`${name} is not a valid name`)
-      : x.name = name;
-    !rating || isNaN(Number(rating))
-      ? loggers.error(`Ayyo fam, ${rating} be a busted rating`) &&
-        res.status(401).send(`${rating} is not a valid rating`)
-      : x.rating = Number(rating);
-    !description || typeof description !== 'string'
-      ? loggers.error(`Ayyo fam, ${description} be a busted description`) &&
-        res.status(401).send(`${description} is not a valid description`)
-      : x.description = description;
+
+    if(!title || typeof title !== 'string'){
+      loggers.error(`Ayyo fam, ${title} be a busted title`);
+      return  res.status(401).send(`${title} is not a valid title`);
+    }else{
+      x.title = title;
+    } 
+    if(!url || url.match(!urlR)){
+      loggers.error(`Ayyo fam, ${url} be a busted url`);
+      return  res.status(401).send(`${url} is not a valid url`);
+    }else{
+      x.url = url;
+    } 
+    if(!name || typeof name !== 'string'){
+      loggers.error(`Ayyo fam, ${name} be a busted name`);
+      return  res.status(401).send(`${name} is not a valid name`);
+    }else{
+      x.name = name;
+    }
+    if(!rating || isNaN(Number(rating))){
+      loggers.error(`Ayyo fam, ${rating} be a busted rating`); 
+      return  res.status(401).send(`${rating} is not a valid rating`);
+    }else{
+      x.rating = Number(rating);
+    }  
+    
+    if(!description || typeof description !== 'string'){
+      loggers.error(`Ayyo fam, ${description} be a busted description`);
+      return  res.status(401).send(`${description} is not a valid description`);
+    }else{
+      x.description = description;
+    }
 
     store.push(x);
 
