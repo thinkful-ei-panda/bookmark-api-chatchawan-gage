@@ -44,17 +44,17 @@ bookmarkRouter
     res.status(200).json(store);
   })
 
-  .post( express.json(), (req, res) => {
+  .post((req, res) => {
     const { title, url, name, rating, description } = req.body;
     const x = {};
     const urlR = /^(https?|chrome):\/\/[^\s$.?#].[^\s]*$/gm;
     x.id = uid;
 
     !title || typeof title !== 'string'
-      ? loggers.error(`Ayyo fam, ${title} be busted`) &&
+      ? loggers.error(`Ayyo fam, ${title} be a busted title`) &&
         res.status(401).send(`${title} is not a valid title`)
       : x.title = title;
-    !url || !url.includes(urlR)
+    !url || url.match(!urlR)
       ? loggers.error(`Ayyo fam, ${url} be busted`) &&
         res.status(401).send(`${url} is not a valid url`)
       : x.url = url;
