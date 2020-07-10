@@ -55,19 +55,19 @@ bookmarkRouter
         res.status(401).send(`${title} is not a valid title`)
       : x.title = title;
     !url || url.match(!urlR)
-      ? loggers.error(`Ayyo fam, ${url} be busted`) &&
+      ? loggers.error(`Ayyo fam, ${url} be a busted url`) &&
         res.status(401).send(`${url} is not a valid url`)
       : x.url = url;
     !name || typeof name !== 'string'
-      ? loggers.error(`Ayyo fam, ${name} be busted`) &&
+      ? loggers.error(`Ayyo fam, ${name} be a busted name`) &&
         res.status(401).send(`${name} is not a valid name`)
       : x.name = name;
     !rating || isNaN(Number(rating))
-      ? loggers.error(`Ayyo fam, ${rating} be busted`) &&
+      ? loggers.error(`Ayyo fam, ${rating} be a busted rating`) &&
         res.status(401).send(`${rating} is not a valid rating`)
       : x.rating = Number(rating);
     !description || typeof description !== 'string'
-      ? loggers.error(`Ayyo fam, ${description} be busted`) &&
+      ? loggers.error(`Ayyo fam, ${description} be a busted description`) &&
         res.status(401).send(`${description} is not a valid description`)
       : x.description = description;
 
