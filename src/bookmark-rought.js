@@ -5,7 +5,7 @@ const bookmarkRouter = express.Router();
 bookmarkRouter
   .route('/bookmark')
   .get((req,res) => {
-    
+
   })
   .post((req,res) =>{
 
