@@ -4,9 +4,8 @@ const morgan = require('morgan');
 const cors = require('cors');
 const helmet = require('helmet');
 const { NODE_ENV , API_KEY } = require('./config');
-const winston = require('winston');
-const bookmarkRouter = express.Router()
-
+const bookmarkRouter = require('./bookmark-rought');
+const logger = require('./logger');
 
 const app = express();
 
@@ -17,27 +16,17 @@ const morganOption = (NODE_ENV === 'production')
 app.use(morgan(morganOption));
 app.use(helmet());
 app.use(cors());
+// app.use(logger);
 
 app.use(function errorHandler(error, req , res , next){/*eslint-disable-line*/
   let response;
   if ( NODE_ENV === 'production'){
     response = { error : {message : 'server error' } };
   }else{
-    logger.add(new winston.transports.Console({format:winston.format.simple()}));
     console.error(error);/*eslint-disable-line*/
     response = { message : error.message, error };
   }
   res.status(500).json(response).send();
-});
-
-const logger = winston.createLogger({
-  level: 'info',
-  format: winston.format.json(),
-  transports: [
-    new winston.transports.File({
-      filename : 'info.log'
-    })
-  ]
 });
 
 app.use( (req,res,next) =>{
@@ -48,11 +37,7 @@ app.use( (req,res,next) =>{
   next();
 });
 
-
 // app.use(bookmarkRouter)
-bookmarkRouter.get( '/', (req,res) => {
-//   throw new Error('Error makes computer fans go brrrr');
-  res.status(200).send('OwO wi mwaking gwod pwa gwas!');
-});
+app.use('/bookmark', bookmarkRouter);
 
 module.exports = app;
