@@ -5,6 +5,7 @@ const cors = require('cors');
 const helmet = require('helmet');
 const { NODE_ENV , API_KEY } = require('./config');
 const winston = require('winston');
+const bookmarkRouter = express.Router()
 
 
 const app = express();
@@ -41,22 +42,17 @@ const logger = winston.createLogger({
 
 app.use( (req,res,next) =>{
   const token = req.get('Authorization');
-  if(!token || token!== API_KEY){
+  if(!token || token.split(' ')[1] !== API_KEY){
     res.status(401).json({error:'that\'s not allowed'} );
   }
   next();
 });
 
 
-
-app.get( '/', (req,res) => {
+// app.use(bookmarkRouter)
+bookmarkRouter.get( '/', (req,res) => {
 //   throw new Error('Error makes computer fans go brrrr');
   res.status(200).send('OwO wi mwaking gwod pwa gwas!');
 });
-
-
-
-
-
 
 module.exports = app;

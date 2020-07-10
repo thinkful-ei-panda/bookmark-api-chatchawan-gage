@@ -17,13 +17,28 @@ bookmarkRouter
 
     res.json(store);
   })
+  
+  .delete((req, res) => {
+    const { id } = req.params
+    const index = store.findIndex(e => e.id === Number(id))
+
+    if (index === -1) {
+      res.send('No ID found')
+    }
+
+    res.send('Found ID and deleted!')
+  });
+
+bookmarkRouter 
+  .route('/bookmark')
+  .get ((req,res) => {
+    res.send('get bookmark working')
+  })
+
   .post((req,res) =>{
     
     res.json(store);
   })
-  .delete((req, res) => {
-
-  });
 
 
 module.exports= bookmarkRouter;
