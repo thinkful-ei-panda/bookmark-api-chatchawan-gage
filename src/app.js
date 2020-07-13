@@ -39,6 +39,6 @@ app.use( (req,res,next) =>{
 });
 
 // app.use(bookmarkRouter)
-app.use('/bookmark', bookmarkRouter);
+app.use('/bookmarks', bookmarkRouter);
 
 module.exports = app;

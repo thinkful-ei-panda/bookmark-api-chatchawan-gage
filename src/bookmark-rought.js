@@ -44,7 +44,7 @@ bookmarkRouter
   })
 
   .post((req, res) => {
-    const { title, url, name, rating, description } = req.body;
+    const { title, url, rating, description } = req.body;
     const x = {};
     const urlR = /^(https?|chrome):\/\/[^\s$.?#].[^\s]*$/gm;
     x.id = uid;
