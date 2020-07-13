@@ -33,7 +33,7 @@ app.use(function errorHandler(error, req , res , next){/*eslint-disable-line*/
 app.use( (req,res,next) =>{
   const token = req.get('Authorization');
   if(!token || token.split(' ')[1] !== API_KEY){
-    res.status(401).json({error:'that\'s not allowed'} );
+    res.status(401).json({error:'Invalid AUthorization'} );
   }
   next();
 });
