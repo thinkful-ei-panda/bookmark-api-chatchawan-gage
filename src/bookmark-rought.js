@@ -19,7 +19,7 @@ bookmarkRouter
         res
           .status(404)
           .send(
-            'OOPSIE WOOPSIE!! Uwu We made a fucky wucky!! A wittle fucko boingo! The code monkeys at our headquarters are working VEWY HAWD to fix this!'
+            'Opps, idk what happened there, maybe try coming back another time'
           )
       : '';
 
