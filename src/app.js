@@ -3,7 +3,7 @@ const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
 const helmet = require('helmet');
-const { NODE_ENV , API_KEY } = require('./config');
+const { NODE_ENV , API_TOKEN } = require('./config');
 const bookmarkRouter = require('./bookmark-rought');
 const logger = require('./logger');
 
@@ -32,7 +32,7 @@ app.use(function errorHandler(error, req , res , next){/*eslint-disable-line*/
 
 app.use( (req,res,next) =>{
   const token = req.get('Authorization');
-  if(!token || token.split(' ')[1] !== API_KEY){
+  if(!token || token.split(' ')[1] !== API_TOKEN){
     res.status(401).json({error:'Invalid AUthorization'} );
   }
   next();
