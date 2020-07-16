@@ -61,12 +61,6 @@ bookmarkRouter
       return  res.status(401).send(`${url} is not a valid url`);
     }else{
       x.url = url;
-    } 
-    if(!name || typeof name !== 'string'){
-      loggers.error(`Ayyo fam, ${name} be a busted name`);
-      return  res.status(401).send(`${name} is not a valid name`);
-    }else{
-      x.name = name;
     }
     if(!rating || isNaN(Number(rating))){
       loggers.error(`Ayyo fam, ${rating} be a busted rating`); 
